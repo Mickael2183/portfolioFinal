@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mickael Esor - Développeur Fullstack & Créatif Numérique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #eb2525;
+            --secondary: #000000;
+            --dark: #00000099;
+            --light: #f8fafc;
+            --gray: #666363;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Navigation */
+        nav {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo i {
+            color: var(--secondary);
+        }
+        
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background-color: #f1f5f9;
+            color: var(--primary);
+        }
+        
+        .nav-item i {
+            width: 24px;
+            text-align: center;
+            color: var(--gray);
+        }
+        
+        .nav-item.active i, .nav-item:hover i {
+            color: var(--primary);
+        }
+        
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 3rem;
+            background-color: #f8fafc;
+        }
+        
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .hero {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card {
+            background: rgba(0, 0, 0, 0.21);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .card h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .card h2 i {
+            color: var(--secondary);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .skill-card {
+            background: #f8fafc;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .skill-card h3 {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .portfolio-item {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .portfolio-img {
+            height: 200px;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+        }
+        
+        .portfolio-info {
+            padding: 1.5rem;
+            background: white;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .contact-item i {
+            width: 40px;
+            height: 40px;
+            background: #e0e7ff;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            color: var(--gray);
+            border-top: 1px solid #0a0a0a;
+        }
+        .profile-frame {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.profile-border {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 5px solid var(--primary);
+    padding: 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+}
+
+.verified-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: var(--primary);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+}
+/* Styles Portfolio */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.portfolio-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 350px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: white;
+}
+
+.portfolio-thumbnail {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 3rem;
+    background: #f1f5f9;
+}
+
+.portfolio-info {
+    padding: 1.5rem;
+}
+
+.portfolio-info h3 {
+    margin-bottom: 0.5rem;
+    color: var(--dark);
+}
+
+.portfolio-info p {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.portfolio-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.overlay-content {
+    text-align: center;
+    color: white;
+    padding: 1.5rem;
+}
+
+.overlay-content h3 {
+    margin-bottom: 0.5rem;
+}
+
+.view-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--primary);
+    color: white;
+    border-radius: 50px;
+    display: inline-block;
+    font-size: 0.9rem;
+}
+
+/* Lightbox Styles */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-container {
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lightbox-content {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.project-header {
+    background: var(--primary);
+    color: white;
+    padding: 1.5rem;
+}
+
+.project-body {
+    padding: 2rem;
+}
+
+.project-description {
+    line-height: 1.8;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            nav {
+                width: 100%;
+                padding: 1.5rem;
+                border-right: none;
+                border-bottom: 1px solid #ff0404;
+            }
+            
+            .nav-menu {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+            
+            .nav-item {
+                white-space: nowrap;
+            }
+            
+            main {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <span>Mickael Esor</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="#" class="nav-item active" onclick="showSection('home')">
+                    <i class="fas fa-home"></i>
+                    <span>Accueil</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('about')">
+                    <i class="fas fa-user"></i>
+                    <span>Présentation</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('skills')">
+                    <i class="fas fa-laptop-code"></i>
+                    <span>Compétences</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('portfolio')">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Portfolio</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('process')">
+                    <i class="fas fa-cogs"></i>
+                    <span>Processus</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('contact')">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main>
+            <!-- Section Accueil -->
+            <section id="home" class="section active">
+                <div class="hero">
+                    <h1>Bienvenue sur mon Portfolio</h1>
+                    <p>Je conçois et développe des expériences digitales exceptionnelles, à l'intersection de la technologie et de la créativité.</p>
+                    <a href="#" class="btn" onclick="showSection('portfolio')">
+                        <i class="fas fa-eye"></i>
+                        Consulter mon travail
+                    </a>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-sparkles"></i> Ce que je fais</h2>
+                    <p>Je combine un interet pour les procédé technique avec sens artistique et créatif appliquée a des solutions digitales innovantes. Mon approche interdisciplinaire me permet de entreprendre des projets de A à Z, du concept initial au déploiement final.</p>
+                    
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <h3><i class="fas fa-globe"></i> Développement Web</h3>
+                            <p>Applications modernes et performantes avec les dernières technologies frontend et backend.</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3><i class="fas fa-mobile-alt"></i> Applications Mobile</h3>
+                            <p>Solutions cross-platform offrant une expérience utilisateur fluide sur tous les appareils.</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3><i class="fas fa-gamepad"></i> Développement Jeux</h3>
+                            <p>Création d'univers interactifs et d'expériences gaming captivantes.</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3><i class="fas fa-robot"></i> Intelligence Artificielle</h3>
+                            <p>Intégration d'IA pour des solutions innovantes et automatisées.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+           <!-- Section Présentation - Version modifiée -->
+<section id="about" class="section">
+    <div class="card">
+        <h2><i class="fas fa-user"></i> Qui suis-je ?</h2>
+        
+        <!-- Ajout du cadre photo de profil -->
+        <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 2rem;">
+            <div style="position: relative; width: 150px; height: 150px;">
+                <!-- Cadre photo -->
+                <div style="
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    border: 5px solid var(--primary);
+                    padding: 5px;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                    background: linear-gradient(45deg, var(--primary), var(--secondary));
+                ">
+                    <!-- Photo -->
+                    <img src="profil.jpg" 
+                         alt="Photo de Mickael Esor" 
+                         style="
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                            object-fit: cover;
+                            border: 3px solid white;
+                         "
+                         onerror="this.src='https://via.placeholder.com/150'">
+                </div>
+                <!-- Badge vérifié optionnel -->
+                <div style="
+                    position: absolute;
+                    bottom: 10px;
+                    right: 10px;
+                    background: var(--primary);
+                    color: white;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 2px solid white;
+                ">
+                    <i class="fas fa-check" style="font-size: 0.8rem;"></i>
+                </div>
+            </div>
+            
+            <div>
+                <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Mickaël Esor</h3>
+                <p style="color: var(--gray); font-style: italic;">Développeur & apprenti en Création Numérique</p>
+            </div>
+        </div>
+        
+        <p>Bonjour, je m'appelle Mickaël Esor. Passionné par la technologie et la Création Numérique, j'ai développé une expertise polyvalente alliant développement logiciel et design créatif.</p>
+        
+        <p>Mon parcours atypique, à la croisée de l'art et de la programmation, me permet d'aborder les projets avec une vision unique, où l'expérience utilisateur rencontre la performance technique.</p>
+        
+        <h3 style="margin-top: 2rem; color: var(--primary);">Mes valeurs</h3>
+        <ul style="margin-top: 1rem; list-style-type: none;">
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--secondary);"></i>
+                <span>Innovation et créativité</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--secondary);"></i>
+                <span>Qualité et excellence technique</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--secondary);"></i>
+                <span>Approche centrée utilisateur</span>
+            </li>
+            <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-check-circle" style="color: var(--secondary);"></i>
+                <span>Apprentissage continu</span>
+            </li>
+        </ul>
+    </div>
+</section>
+            
+            <!-- Section Compétences -->
+            <section id="skills" class="section">
+                <div class="card">
+                    <h2><i class="fas fa-laptop-code"></i> Mes Compétences</h2>
+                    <p>Un panorama de mes expertises techniques et créatives, constamment enrichies par de nouveaux apprentissages.</p>
+                    
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <h3><i class="fab fa-html5"></i> Frontend</h3>
+                            <p>HTML5, CSS3, JavaScript, React, Vue.js, TailwindCSS, animations</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3><i class="fas fa-server"></i> Backend</h3>
+                            <p>Node.js, Python, PHP, bases de données, architecture API</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3><i class="fas fa-mobile-alt"></i> Mobile</h3>
+                            <p>React Native, Flutter, développement cross-platform</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3><i class="fas fa-gamepad"></i> Game Dev</h3>
+                            <p>Unity, Unreal Engine, conception gameplay, level design</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3><i class="fas fa-robot"></i> IA/ML</h3>
+                            <p>Python, TensorFlow, chatbots, traitement NLP</p>
+                        </div>
+                        <div class="skill-card">
+                            <h3><i class="fas fa-paint-brush"></i> Design</h3>
+                            <p>UI/UX, Figma, Adobe Suite, direction artistique</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+       <!-- Section Portfolio Simplifiée -->
+<section id="portfolio" class="section">
+    <div class="card">
+        <h2><i class="fas fa-briefcase"></i> Mes Projets</h2>
+        <p>Réalisations concrètes avec technologies maîtrisées</p>
+        
+        <div class="projects-grid">
+            <!-- Projet 1 -->
+            <div class="project-card">
+                <img src="concept_table.png" alt="Plan de travail futuriste" class="project-img">
+                <div class="project-info">
+                    <h3>Plan de Travail Futuriste</h3>
+                    <p>Modélisation 3D sous Blender</p>
+                    <div class="tech-tags">
+                        <span class="tag blender">Blender</span>
+                        <span class="tag substance">Substance Painter</span>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</section>
+<!-- Section Langages de Programmation -->
+<section id="skills" class="section">
+    <div class="card">
+        <h2><i class="fas fa-code"></i> Compétences Techniques</h2>
+        <p>Langages et technologies que je maîtrise</p>
+        
+        <div class="skills-container">
+            <!-- Langage 1 -->
+            <div class="skill-item">
+                <div class="skill-header">
+                    <img src="assets/icons/python.svg" alt="Python" class="skill-icon">
+                    <span>Python</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-level" style="width: 85%;"></div>
+                </div>
+            </div>
+            
+            <!-- Langage 2 -->
+            <div class="skill-item">
+                <div class="skill-header">
+                    <img src="assets/icons/javascript.svg" alt="JavaScript" class="skill-icon">
+                    <span>JavaScript</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-level" style="width: 75%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Lightbox Modale -->
+    <div id="project-lightbox" class="lightbox">
+        <div class="lightbox-container">
+            <button class="lightbox-close">
+                <i class="fas fa-arrow-left"></i> Sortie
+            </button>
+            
+            <div class="lightbox-content">
+                <div class="project-header">
+                    <h2 id="project-title">Titre Projet</h2>
+                    <p id="project-category">Catégorie</p>
+                </div>
+                <div class="project-body">
+                    <div id="project-description" class="project-description"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<link rel="stylesheet" href="portfolio.css">
+<script src="portfolio.js"></script>
+
+<script>
+    // Gestion des projets
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const projectId = this.getAttribute('data-project');
+            loadProject(projectId);
+        });
+    });
+    
+    function loadProject(projectId) {
+        // Ici vous chargeriez le contenu dynamiquement
+        const content = `
+            <h2>Détails du Projet</h2>
+            <p>Contenu spécifique pour ${projectId}</p>
+            <img src="${projectId}-full.jpg" style="width:100%; max-height:500px; object-fit:contain;">
+        `;
+        
+        document.querySelector('.project-content').innerHTML = content;
+        document.getElementById('projectOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Fermeture
+    document.querySelector('.close-btn').addEventListener('click', closeProject);
+    
+    function closeProject() {
+        document.getElementById('projectOverlay').classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
+    // Fermer avec ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeProject();
+        }
+    });
+</script>
+            <!-- Section Processus -->
+            <section id="process" class="section">
+                <div class="card">
+                    <h2><i class="fas fa-cogs"></i> Mon processus de travail</h2>
+                    <p>Une méthodologie rigoureuse et adaptable pour garantir des résultats à la hauteur de vos attentes.</p>
+                    
+                    <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
+                            <div style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+                            <div>
+                                <h3 style="margin-bottom: 0.5rem; color: var(--dark);">Découverte & conception</h3>
+                                <p style="color: var(--gray);">Analyse des besoins, recherche utilisateur et création de wireframes détaillés pour établir les fondations du projet.</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
+                            <div style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+                            <div>
+                                <h3 style="margin-bottom: 0.5rem; color: var(--dark);">Prototypage</h3>
+                                <p style="color: var(--gray);">Développement de prototypes interactifs pour valider les concepts clés avant l'implémentation.</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
+                            <div style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</div>
+                            <div>
+                                <h3 style="margin-bottom: 0.5rem; color: var(--dark);">Développement agile</h3>
+                                <p style="color: var(--gray);">Implémentation intéractive avec tests continus et retours réguliers pour un produit parfaitement adapté.</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
+                            <div style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">4</div>
+                            <div>
+                                <h3 style="margin-bottom: 0.5rem; color: var(--dark);">Lancement & optimisation</h3>
+                                <p style="color: var(--gray);">Déploiement progressif et analyse des performances pour des améliorations continues.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section Contact -->
+            <section id="contact" class="section">
+                <div class="card">
+                    <h2><i class="fas fa-envelope"></i> Contactez-moi</h2>
+                    <p>Disponible pour des collaborations intéressantes ou simplement échanger autour d'un projet.</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>Email</h3>
+                                <p>mickaelesor67@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h3>Téléphone</h3>
+                                <p>+596 696 07 61 03</p>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <div>
+                                <h3>GitHub</h3>
+                                <p>github.com/Mickael2183</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <a href="mailto:mickaelesor67@gmail.com" class="btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Envoyer un message
+                        </a>
+                    </div>
+                </div>
+            </section>
+            
+            <footer>
+                <p>&copy; 2025 Mickaël Esor. Tous droits réservés.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Développé avec passion et <i class="fas fa-heart" style="color: #ef4444;"></i></p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Masquer toutes les sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Désactiver tous les boutons de navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Afficher la section sélectionnée
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Activer le bouton de navigation correspondant
+            event.currentTarget.classList.add('active');
+            
+            // Scroll vers le haut
+            window.scrollTo(0, 0);
+        }
+        
+        // Optionnel: Permet de garder la section active au rechargement
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    localStorage.setItem('activeSection', this.getAttribute('onclick').match(/'([^']+)'/)[1]);
+                });
+            });
+            
+            const activeSection = localStorage.getItem('activeSection') || 'home';
+            showSection(activeSection);
+            
+            // Corriger l'état actif de la navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                if (item.getAttribute('onclick').includes(activeSection)) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        // Données des projets (conforme à votre texte)
+const projects = {
+    projet1: {
+        title: "Application Web \"ArtVision\"",
+        category: "Plateforme communautaire",
+        description: "Plateforme communautaire pour artistes numériques avec galerie interactive et outils de collaboration."
+    },
+    projet2: {
+        title: "App Mobile \"FitTrack\"",
+        category: "Application fitness",
+        description: "Application de suivi fitness avec recommandations personnalisées par IA."
+    },
+    projet3: {
+        title: "Jeu \"Pixel Odyssey\"",
+        category: "Jeu vidéo",
+        description: "Jeu d'aventure 2D avec mécaniques innovantes et univers riche."
+    }
+};
+
+// Initialisation des événements
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion des clics sur les projets
+    document.querySelectorAll('.portfolio-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const projectId = this.getAttribute('data-project');
+            openProject(projectId);
+        });
+    });
+
+    // Gestion du bouton de fermeture
+    document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+});
+
+function openProject(projectId) {
+    const project = projects[projectId];
+    
+    document.getElementById('project-title').textContent = project.title;
+    document.getElementById('project-category').textContent = project.category;
+    document.getElementById('project-description').textContent = project.description;
+    
+    document.getElementById('project-lightbox').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    document.getElementById('project-lightbox').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Fermer avec ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('project-lightbox').style.display === 'flex') {
+        closeLightbox();
+    }
+});
+    </script>
+</body>
+</html>
